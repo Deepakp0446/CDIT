@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Primary SEO Meta Tags -->
     <title>IT Infrastructure, AMC & Laptop Rental Services in Mumbai | CD IT Solution</title>
     <meta name="description" content="CD IT Solution provides enterprise IT infrastructure, Annual Maintenance Contracts (AMC), FMS, laptop rentals, firewall security, and hardware sales in Mumbai & Thane.">
@@ -25,7 +25,7 @@
     <meta name="twitter:description" content="Enterprise IT AMC, FMS, laptop rentals, and hardware procurement in Mumbai & Thane.">
     <meta name="twitter:image" content="https://cdits.inassets/og-banner.jpg">
 
-    <!-- LocalBusiness JSON-LD Schema for Google Local Search -->
+    <!-- LocalBusiness JSON-LD Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -56,21 +56,14 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cloudflare.com">
 
-    <!-- GSAP & ScrollTrigger (Deferred for Faster Page Load) -->
-    <script defer src="https://cloudflare.com"></script>
-    <script defer src="https://cloudflare.com"></script>
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cloudflare.com"></script>
+    <script src="https://cloudflare.com"></script>
 
     <style>
-        /* Native Smooth Scrolling + Fixed Navbar Offset */
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 100px;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
         }
 
         body {
@@ -107,6 +100,7 @@
             box-shadow: 0 12px 25px rgba(2, 132, 199, 0.45);
         }
 
+        /* Fade-in & Slide-up Reveal Utility */
         .reveal-up {
             opacity: 0;
             transform: translateY(30px);
@@ -120,6 +114,9 @@
             visibility: visible;
         }
 
+        /* --------------------------------------------------------
+           SOLID 3D SANDWICH CHASSIS (FRONT | 8mm WALL | BACK)
+        -------------------------------------------------------- */
         .phone-perspective-container {
             perspective: 1200px;
             width: 320px;
@@ -139,6 +136,7 @@
             border-radius: 44px;
         }
 
+        /* 8mm MIDDLE SOLID CHASSIS SLICES */
         .phone-middle-slice {
             position: absolute;
             inset: 0;
@@ -151,6 +149,7 @@
             box-sizing: border-box;
         }
 
+        /* FRONT & BACK FACES PLACED AT THE OUTER EDGE (+8px) */
         .phone-face {
             position: absolute;
             inset: 0;
@@ -164,16 +163,19 @@
             overflow: hidden;
         }
 
+        /* BACK COVER */
         .phone-back {
             transform: rotateY(0deg) translateZ(8px);
             background: linear-gradient(145deg, #020617 0%, #0f172a 50%, #0369a1 100%);
         }
 
+        /* FRONT SCREEN */
         .phone-front {
             transform: rotateY(180deg) translateZ(8px);
             background: #f1f5f9;
         }
 
+        /* DYNAMIC SHINE SWEEP OVERLAY */
         .back-shine-overlay {
             background: linear-gradient(
                 120deg, 
@@ -188,6 +190,7 @@
             pointer-events: none;
         }
 
+        /* Hide Scrollbars */
         .phone-cards-track::-webkit-scrollbar { display: none; }
         .phone-cards-track { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
