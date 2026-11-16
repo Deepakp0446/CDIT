@@ -3,24 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CD IT Solution | Full Enterprise Infrastructure & 3D Showcase</title>
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>IT Infrastructure, AMC & Laptop Rental Services in Mumbai | CD IT Solution</title>
+    <meta name="description" content="CD IT Solution provides enterprise IT infrastructure, Annual Maintenance Contracts (AMC), FMS, laptop rentals, firewall security, and hardware sales in Mumbai & Thane.">
+    <meta name="keywords" content="IT AMC services Mumbai, laptop rental Mumbai, IT infrastructure provider Andheri East, enterprise hardware procurement, firewall security Thane, CD IT Solution">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cdits.in">
+
+    <!-- Open Graph / Social Sharing Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CD IT Solution">
+    <meta property="og:url" content="https://cdits.in">
+    <meta property="og:title" content="IT Infrastructure, AMC & Rental Services in Mumbai | CD IT Solution">
+    <meta property="og:description" content="Trusted IT infrastructure partner in Mumbai & Thane since 2011. Explore IT AMC, laptop rentals, networking, and enterprise hardware solutions.">
+    <meta property="og:image" content="https://cdits.inassets/og-banner.jpg">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IT Infrastructure, AMC & Rental Services in Mumbai | CD IT Solution">
+    <meta name="twitter:description" content="Enterprise IT AMC, FMS, laptop rentals, and hardware procurement in Mumbai & Thane.">
+    <meta name="twitter:image" content="https://cdits.inassets/og-banner.jpg">
+
+    <!-- LocalBusiness JSON-LD Schema for Google Local Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ITService",
+      "name": "CD IT Solution",
+      "url": "https://cdits.in",
+      "telephone": "+91-98703-43227",
+      "email": "info@cdits.in",
+      "foundingDate": "2011",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Andheri East, Mumbai",
+        "addressRegion": "Maharashtra",
+        "addressCountry": "IN"
+      },
+      "areaServed": ["Mumbai", "Andheri East", "Thane", "Bhayander", "Navi Mumbai"]
+    }
+    </script>
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://tailwindcss.com"></script>
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
 
-    <!-- GSAP & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- GSAP & ScrollTrigger (Deferred for Faster Page Load) -->
+    <script defer src="https://cloudflare.com"></script>
+    <script defer src="https://cloudflare.com"></script>
 
     <style>
+        /* Native Smooth Scrolling + Fixed Navbar Offset */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
         body {
             background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 35%, #F0F9FF 70%, #E0F2FE 100%);
             background-attachment: fixed;
@@ -55,7 +107,6 @@
             box-shadow: 0 12px 25px rgba(2, 132, 199, 0.45);
         }
 
-        /* Fade-in & Slide-up Reveal Utility */
         .reveal-up {
             opacity: 0;
             transform: translateY(30px);
@@ -69,9 +120,6 @@
             visibility: visible;
         }
 
-        /* --------------------------------------------------------
-           SOLID 3D SANDWICH CHASSIS (FRONT | 8mm WALL | BACK)
-        -------------------------------------------------------- */
         .phone-perspective-container {
             perspective: 1200px;
             width: 320px;
@@ -91,7 +139,6 @@
             border-radius: 44px;
         }
 
-        /* 8mm MIDDLE SOLID CHASSIS SLICES */
         .phone-middle-slice {
             position: absolute;
             inset: 0;
@@ -104,7 +151,6 @@
             box-sizing: border-box;
         }
 
-        /* FRONT & BACK FACES PLACED AT THE OUTER EDGE (+8px) */
         .phone-face {
             position: absolute;
             inset: 0;
@@ -118,19 +164,16 @@
             overflow: hidden;
         }
 
-        /* BACK COVER */
         .phone-back {
             transform: rotateY(0deg) translateZ(8px);
             background: linear-gradient(145deg, #020617 0%, #0f172a 50%, #0369a1 100%);
         }
 
-        /* FRONT SCREEN */
         .phone-front {
             transform: rotateY(180deg) translateZ(8px);
             background: #f1f5f9;
         }
 
-        /* DYNAMIC SHINE SWEEP OVERLAY */
         .back-shine-overlay {
             background: linear-gradient(
                 120deg, 
@@ -145,11 +188,11 @@
             pointer-events: none;
         }
 
-        /* Hide Scrollbars */
         .phone-cards-track::-webkit-scrollbar { display: none; }
         .phone-cards-track { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
+
 <body class="relative min-h-screen">
 
     <!-- Ambient Glow Background Blobs -->
