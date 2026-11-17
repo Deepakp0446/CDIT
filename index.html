@@ -197,12 +197,29 @@
     </div>
 
     <!-- Top Sound Toggle Bar -->
-    <header class="relative z-30 max-w-5xl mx-auto px-4 pt-4 flex items-center justify-end text-xs text-slate-300">
+    <header class="relative z-30 max-w-5xl mx-auto px-4 pt-4 flex items-center justify-end gap-2 text-xs text-slate-300">
+        <button onclick="toggleBackgroundMusic()" id="musicToggleBtn" class="bg-slate-900/80 hover:bg-slate-800 border border-amber-400/40 text-amber-300 px-3.5 py-1.5 rounded-full transition flex items-center gap-1.5 cursor-pointer shadow-md">
+            <span id="musicIcon">🎵</span>
+            <span id="musicLabel">Play Music</span>
+        </button>
         <button onclick="toggleSound()" id="soundToggleBtn" class="bg-slate-900/80 hover:bg-slate-800 border border-amber-400/40 text-amber-300 px-3.5 py-1.5 rounded-full transition flex items-center gap-1.5 cursor-pointer shadow-md">
             <span id="soundIcon">🔊</span>
-            <span id="soundLabel">Fanfare Sound: ON</span>
+            <span id="soundLabel">Fanfare: ON</span>
         </button>
     </header>
+
+    <!--
+        ===================================================================
+        DEVELOPER INSTRUCTION - HOW TO ADD YOUR CUSTOM CELEBRATION AUDIO:
+        1. Place your audio file (e.g., "celebration.mp3") in the exact same
+           folder as this HTML file.
+        2. Keep `src="celebration.mp3"` below (or update the filename to
+           match your MP3/OGG/WAV file).
+        3. Visitors can play/pause it from the top "Play Music" button, and
+           it will also start automatically when they click "Celebrate"!
+        ===================================================================
+    -->
+    <audio id="bgCelebrationAudio" src="celebration.mp3" loop preload="auto"></audio>
 
     <!-- MAIN CELEBRATION CONTAINER -->
     <main class="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 pt-4 pb-20 flex flex-col items-center text-center">
@@ -477,10 +494,55 @@
     <!-- ===================================================================== -->
     <script>
         /* ---------------------------------------------------------------------
-           1. CELEBRATORY BRASS FANFARE SYNTHESIZER (TONE.JS)
-           Plays an uplifting ceremonial trumpet/chime chord on button click.
+           1. CUSTOM AUDIO PLAYER & CELEBRATORY FANFARE SYNTHESIZER (TONE.JS)
+           Supports a local "celebration.mp3" file with synthesized fallback.
         --------------------------------------------------------------------- */
         let soundEnabled = true;
+        let isMusicPlaying = false;
+        let customAudioAvailable = true;
+
+        const bgAudio = document.getElementById('bgCelebrationAudio');
+        if (bgAudio) {
+            bgAudio.volume = 0.65;
+            bgAudio.addEventListener('error', () => {
+                customAudioAvailable = false;
+            });
+        }
+
+        function updateMusicButtonUI(playing) {
+            isMusicPlaying = playing;
+            const icon = document.getElementById('musicIcon');
+            const label = document.getElementById('musicLabel');
+            if (!icon || !label) return;
+            if (playing) {
+                icon.textContent = '⏸️';
+                label.textContent = 'Pause Music';
+            } else {
+                icon.textContent = '🎵';
+                label.textContent = 'Play Music';
+            }
+        }
+
+        async function toggleBackgroundMusic() {
+            if (!bgAudio || !customAudioAvailable) {
+                showToast('Add "celebration.mp3" in Folder', 'Place celebration.mp3 next to this HTML file to play custom audio!');
+                playCelebrationFanfare();
+                return;
+            }
+
+            try {
+                if (bgAudio.paused) {
+                    await bgAudio.play();
+                    updateMusicButtonUI(true);
+                } else {
+                    bgAudio.pause();
+                    updateMusicButtonUI(false);
+                }
+            } catch (err) {
+                showToast('Add "celebration.mp3" in Folder', 'Place celebration.mp3 next to this HTML file to play custom audio!');
+                playCelebrationFanfare();
+            }
+        }
 
         function toggleSound() {
             soundEnabled = !soundEnabled;
@@ -488,10 +550,10 @@
             const label = document.getElementById('soundLabel');
             if (soundEnabled) {
                 icon.textContent = '🔊';
-                label.textContent = 'Fanfare Sound: ON';
+                label.textContent = 'Fanfare: ON';
             } else {
                 icon.textContent = '🔇';
-                label.textContent = 'Fanfare Sound: OFF';
+                label.textContent = 'Fanfare: OFF';
             }
         }
 
@@ -540,6 +602,11 @@
             saluteCount += 1;
             const counterEl = document.getElementById('saluteCounter');
             if (counterEl) counterEl.textContent = saluteCount;
+
+            // Start custom background audio if added & not yet playing
+            if (bgAudio && customAudioAvailable && bgAudio.paused) {
+                bgAudio.play().then(() => updateMusicButtonUI(true)).catch(() => {});
+            }
 
             playCelebrationFanfare();
             showToast('Jai Hind! Grand Salute Sent!', 'Wishing a proud & glorious career in UP Police!');
@@ -686,9 +753,12 @@
             fallingParticles.push(new FallingParticle(true));
         }
 
-        // Allow clicking anywhere on background to launch a firework
+        // Allow clicking anywhere on background to launch a firework (and start music if available)
         document.addEventListener('click', (e) => {
             if (e.target.closest('button')) return;
+            if (bgAudio && customAudioAvailable && bgAudio.paused) {
+                bgAudio.play().then(() => updateMusicButtonUI(true)).catch(() => {});
+            }
             createFireworkBurst(e.clientX, e.clientY);
         });
 
