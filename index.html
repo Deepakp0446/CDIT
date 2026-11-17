@@ -198,9 +198,9 @@
 
     <!-- Top Sound Toggle Bar -->
     <header class="relative z-30 max-w-5xl mx-auto px-3 sm:px-4 pt-3 sm:pt-4 flex flex-wrap items-center justify-end gap-2 text-xs text-slate-300">
-        <button onclick="toggleNationalAnthem()" id="musicToggleBtn" class="bg-slate-900/85 hover:bg-slate-800 border border-amber-400/50 text-amber-300 px-3 sm:px-4 py-2 rounded-full transition flex items-center gap-1.5 cursor-pointer shadow-md touch-manipulation">
-            <span id="musicIcon">🇮🇳</span>
-            <span id="musicLabel">Play National Anthem</span>
+        <button onclick="toggleCustomAudio()" id="musicToggleBtn" class="bg-slate-900/85 hover:bg-slate-800 border border-amber-400/50 text-amber-300 px-3 sm:px-4 py-2 rounded-full transition flex items-center gap-1.5 cursor-pointer shadow-md touch-manipulation">
+            <span id="musicIcon">🎵</span>
+            <span id="musicLabel">Play Audio</span>
         </button>
         <button onclick="toggleSound()" id="soundToggleBtn" class="bg-slate-900/85 hover:bg-slate-800 border border-amber-400/40 text-amber-300 px-3 sm:px-4 py-2 rounded-full transition flex items-center gap-1.5 cursor-pointer shadow-md touch-manipulation">
             <span id="soundIcon">🔊</span>
@@ -210,13 +210,13 @@
 
     <!--
         ===================================================================
-        OPTIONAL CUSTOM AUDIO FILE:
-        If you also want to place an external "anthem.mp3" file in the same
-        folder, it will play automatically; otherwise, the built-in realistic
-        instrumental National Anthem (Jana Gana Mana) plays cleanly!
+        YOUR CUSTOM AUDIO FILE:
+        1. Place your audio file in the SAME folder as this HTML file.
+        2. Rename your audio file to "audio.mp3" (OR change src="audio.mp3"
+           below to match your exact filename, e.g., src="mysong.mp3").
         ===================================================================
     -->
-    <audio id="bgCelebrationAudio" src="anthem.mp3" preload="auto"></audio>
+    <audio id="bgCelebrationAudio" src="NAaudio.mp3" preload="auto" loop></audio>
 
     <!-- MAIN CELEBRATION CONTAINER -->
     <main class="relative z-20 max-w-5xl mx-auto px-3 sm:px-6 pt-3 sm:pt-4 pb-16 sm:pb-20 flex flex-col items-center text-center">
@@ -373,11 +373,7 @@
                 <div class="mt-5 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
                     <button onclick="launchGrandCelebration()" class="btn-celebrate w-full sm:w-auto justify-center px-6 sm:px-7 py-3.5 rounded-full font-extrabold text-sm sm:text-base uppercase tracking-wider flex items-center gap-2.5 cursor-pointer touch-manipulation">
                         <span class="text-xl">🎆</span>
-                        <span>Celebrate / Fireworks</span>
-                    </button>
-                    <button onclick="toggleNationalAnthem()" class="w-full sm:w-auto justify-center px-5 py-3 rounded-full bg-slate-900/90 hover:bg-slate-800 border border-amber-400/50 text-amber-300 font-bold text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 cursor-pointer transition touch-manipulation">
-                        <span>🎺</span>
-                        <span>Anthem Instrumental</span>
+                        <span>Click Here to Celebrate</span>
                     </button>
                 </div>
                 <p class="text-xs text-slate-300 mt-3.5">
@@ -478,174 +474,58 @@
     <!-- ===================================================================== -->
     <script>
         /* ---------------------------------------------------------------------
-           1. INDIAN NATIONAL ANTHEM (JANA GANA MANA) INSTRUMENTAL SYNTHESIZER
-           Plays a majestic orchestral flute/brass-style instrumental melody
-           using Tone.js (or plays external "anthem.mp3" if placed in folder).
+           1. CUSTOM AUDIO FILE CONTROLLER ("audio.mp3")
+           Plays your local audio file smoothly and auto-starts on first click/tap.
         --------------------------------------------------------------------- */
         let soundEnabled = true;
-        let isAnthemPlaying = false;
-        let customAudioAvailable = true;
-        let anthemSequenceEvents = [];
-        let anthemEndTimer = null;
+        let isAudioPlaying = false;
+        let hasAutoStartedAudio = false;
 
         const bgAudio = document.getElementById('bgCelebrationAudio');
         if (bgAudio) {
-            bgAudio.volume = 0.75;
-            bgAudio.addEventListener('error', () => {
-                customAudioAvailable = false;
-            });
-            bgAudio.addEventListener('ended', () => {
-                updateAnthemButtonUI(false);
-            });
+            bgAudio.volume = 0.85;
+            bgAudio.addEventListener('play', () => updateAudioButtonUI(true));
+            bgAudio.addEventListener('pause', () => updateAudioButtonUI(false));
+            bgAudio.addEventListener('ended', () => updateAudioButtonUI(false));
         }
 
-        function updateAnthemButtonUI(playing) {
-            isAnthemPlaying = playing;
+        function updateAudioButtonUI(playing) {
+            isAudioPlaying = playing;
             const icon = document.getElementById('musicIcon');
             const label = document.getElementById('musicLabel');
-            if (!icon || !label) return;
+            const cardLabel = document.getElementById('cardMusicLabel');
             if (playing) {
-                icon.textContent = '⏸️';
-                label.textContent = 'Stop Anthem';
+                if (icon) icon.textContent = '⏸️';
+                if (label) label.textContent = 'Pause Audio';
+                if (cardLabel) cardLabel.textContent = 'Pause Audio';
             } else {
-                icon.textContent = '🇮🇳';
-                label.textContent = 'Play National Anthem';
+                if (icon) icon.textContent = '🎵';
+                if (label) label.textContent = 'Play Audio';
+                if (cardLabel) cardLabel.textContent = 'Play Audio';
             }
         }
 
-        function stopInstrumentalAnthem() {
-            anthemSequenceEvents.forEach(id => clearTimeout(id));
-            anthemSequenceEvents = [];
-            if (anthemEndTimer) {
-                clearTimeout(anthemEndTimer);
-                anthemEndTimer = null;
-            }
-            if (bgAudio && !bgAudio.paused) {
-                bgAudio.pause();
-                bgAudio.currentTime = 0;
-            }
-            updateAnthemButtonUI(false);
-        }
-
-        async function playInstrumentalAnthem() {
-            if (isAnthemPlaying) return;
-
-            // If user placed an external anthem.mp3 in the folder, play it first
-            if (bgAudio && customAudioAvailable) {
-                try {
-                    await bgAudio.play();
-                    updateAnthemButtonUI(true);
-                    showToast('🇮🇳 Jana Gana Mana Instrumental', 'Saluting the pride of Uttar Pradesh Police!');
-                    return;
-                } catch (err) {
-                    // Fallback smoothly to built-in Tone.js National Anthem instrumental
+        async function playCustomAudio(silentFail = false) {
+            if (!bgAudio) return;
+            try {
+                await bgAudio.play();
+                hasAutoStartedAudio = true;
+                updateAudioButtonUI(true);
+            } catch (err) {
+                updateAudioButtonUI(false);
+                if (!silentFail) {
+                    showToast('Audio File Not Found', 'Place "audio.mp3" in the same folder as this HTML file.');
                 }
             }
-
-            if (typeof Tone === 'undefined') return;
-
-            try {
-                await Tone.start();
-                stopInstrumentalAnthem();
-                updateAnthemButtonUI(true);
-                showToast('🇮🇳 Jana Gana Mana Instrumental', 'Saluting Mr. Shivam Prajapati & UP Police!');
-
-                // Warm Ceremonial Brass/Strings Pad + Melodic Lead
-                const reverb = new Tone.Reverb({ decay: 2.8, wet: 0.35 }).toDestination();
-                const leadSynth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: 'triangle' },
-                    envelope: { attack: 0.08, decay: 0.25, sustain: 0.65, release: 0.9 }
-                }).connect(reverb);
-                leadSynth.volume.value = -5;
-
-                const padSynth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: 'sine' },
-                    envelope: { attack: 0.2, decay: 0.4, sustain: 0.7, release: 1.4 }
-                }).connect(reverb);
-                padSynth.volume.value = -13;
-
-                // Complete Jana Gana Mana melody in C Major (Sa = C4)
-                // Format: [note, durationSec, gapAfterSec, chordNotes]
-                const beat = 0.46; // Ceremonial 52-second march tempo
-                const melody = [
-                    // Ja-na Ga-na Ma-na A-dhi-na-ya-ka Ja-ya He
-                    ['C4', 1, ['C3','G3']], ['D4', 1, null], ['E4', 1, ['C3','E3','G3']], ['E4', 1, null],
-                    ['E4', 1, null], ['E4', 1, null], ['E4', 1, null], ['E4', 1, null],
-                    ['E4', 1, null], ['D4', 1, ['G3','B3']], ['E4', 1, null], ['F4', 2, ['F3','A3','C4']],
-                    // Bha-ra-ta Bha-gya Vi-dha-ta
-                    ['E4', 1, ['C3','G3']], ['E4', 1, null], ['E4', 1, null], ['D4', 1, ['G3','B3']],
-                    ['D4', 1, null], ['D4', 1, null], ['B3', 1, null], ['D4', 1, null], ['C4', 2.4, ['C3','E3','G3']],
-                    // Pun-ja-ba Sin-dhu Gu-ja-ra-ta Ma-ra-tha
-                    ['C4', 1, ['C3','G3']], ['G4', 1, ['C3','E3','G3']], ['G4', 1, null], ['G4', 1, null],
-                    ['G4', 1, null], ['G4', 1, null], ['G4', 1, null], ['G4', 1, null],
-                    ['F#4', 1, ['D3','A3']], ['G4', 1, null], ['A4', 2.2, ['F3','A3','C4']],
-                    // Dra-vi-da Ut-ka-la Ban-ga
-                    ['G4', 1, ['C3','G3']], ['G4', 1, null], ['G4', 1, null], ['F4', 1, ['F3','A3']],
-                    ['F4', 1, null], ['F4', 1, null], ['E4', 1, ['C3','E3']], ['G4', 1, null], ['F4', 2.2, ['F3','A3','C4']],
-                    // Vin-dhya Hi-ma-cha-la Ya-mu-na Gan-ga
-                    ['E4', 1, ['C3','E3','G3']], ['E4', 1, null], ['E4', 1, null], ['E4', 1, null],
-                    ['E4', 1, null], ['D4', 1, ['G3','B3']], ['G4', 1, null], ['G4', 1, null],
-                    ['G4', 1, null], ['F4', 1, ['F3','A3']], ['F4', 2.2, ['F3','A3','C4']],
-                    // Uch-chha-la Ja-la-dhi Ta-ran-ga
-                    ['E4', 1, ['C3','G3']], ['E4', 1, null], ['E4', 1, null], ['D4', 1, ['G3','B3']],
-                    ['D4', 1, null], ['D4', 1, null], ['B3', 1, null], ['D4', 1, null], ['C4', 2.4, ['C3','E3','G3']],
-                    // Ta-va Shu-bha Na-me Ja-ge
-                    ['C4', 1, ['C3','G3']], ['D4', 1, null], ['E4', 1, ['C3','E3','G3']], ['E4', 1, null],
-                    ['E4', 1, null], ['E4', 1, null], ['D4', 1, ['G3','B3']], ['E4', 1, null], ['F4', 2.2, ['F3','A3','C4']],
-                    // Ta-va Shu-bha A-shi-sha Ma-ge
-                    ['E4', 1, ['C3','G3']], ['F4', 1, null], ['G4', 1, ['C3','E3','G3']], ['G4', 1, null],
-                    ['G4', 1, null], ['F4', 1, ['F3','A3']], ['E4', 1, null], ['D4', 1, ['G3','B3']], ['F4', 1, null], ['E4', 2.2, ['C3','E3','G3']],
-                    // Ga-he Ta-va Ja-ya Ga-tha
-                    ['E4', 1, ['C3','G3']], ['E4', 1, null], ['D4', 1, ['G3','B3']], ['D4', 1, null],
-                    ['D4', 1, null], ['D4', 1, null], ['B3', 1, null], ['D4', 1, null], ['C4', 2.4, ['C3','E3','G3']],
-                    // Ja-na Ga-na Man-ga-la Da-ya-ka Ja-ya He
-                    ['G4', 1.2, ['C3','E3','G3']], ['G4', 1, null], ['G4', 1, null], ['G4', 1, null],
-                    ['G4', 1, null], ['G4', 1, null], ['F#4', 1, ['D3','A3']], ['G4', 1, null], ['A4', 2.2, ['F3','A3','C4']],
-                    // Bha-ra-ta Bha-gya Vi-dha-ta
-                    ['G4', 1, ['C3','G3']], ['G4', 1, null], ['G4', 1, null], ['F4', 1, ['F3','A3']],
-                    ['F4', 1, null], ['F4', 1, null], ['E4', 1, ['C3','E3']], ['G4', 1, null], ['F4', 2.2, ['F3','A3','C4']],
-                    // Ja-ya He, Ja-ya He, Ja-ya He
-                    ['C5', 1.3, ['C3','E3','G3']], ['B4', 1.1, ['G3','B3']], ['A4', 2.0, ['F3','A3','C4']],
-                    ['B4', 1.3, ['G3','B3','D4']], ['A4', 1.1, ['F3','A3']], ['G4', 2.0, ['C3','E3','G3']],
-                    ['A4', 1.3, ['F3','A3','C4']], ['G4', 1.1, ['C3','E3','G3']], ['F4', 2.2, ['F3','A3','C4']],
-                    // Ja-ya Ja-ya Ja-ya Ja-ya He!
-                    ['C4', 1, ['C3','G3']], ['C4', 1, null], ['D4', 1, ['G3','B3']], ['D4', 1, null],
-                    ['E4', 1, ['C3','E3','G3']], ['E4', 1, null], ['D4', 1, ['G3','B3']], ['E4', 1, null],
-                    ['F4', 3.4, ['F3','A3','C4','F4']]
-                ];
-
-                let elapsedMs = 0;
-                melody.forEach(([note, beats, chord]) => {
-                    const durationSec = beats * beat;
-                    const tId = setTimeout(() => {
-                        if (!isAnthemPlaying) return;
-                        leadSynth.triggerAttackRelease(note, durationSec * 0.92);
-                        if (chord) {
-                            padSynth.triggerAttackRelease(chord, durationSec * 1.4);
-                        }
-                    }, elapsedMs);
-                    anthemSequenceEvents.push(tId);
-                    elapsedMs += durationSec * 1000;
-                });
-
-                anthemEndTimer = setTimeout(() => {
-                    updateAnthemButtonUI(false);
-                    // Grand finale firework burst at the end of the National Anthem!
-                    createFireworkBurst(window.innerWidth * 0.3, window.innerHeight * 0.25);
-                    createFireworkBurst(window.innerWidth * 0.7, window.innerHeight * 0.25);
-                    createFireworkBurst(window.innerWidth * 0.5, window.innerHeight * 0.18);
-                }, elapsedMs + 400);
-
-            } catch (err) {
-                updateAnthemButtonUI(false);
-            }
         }
 
-        function toggleNationalAnthem() {
-            if (isAnthemPlaying) {
-                stopInstrumentalAnthem();
+        function toggleCustomAudio() {
+            if (!bgAudio) return;
+            if (!bgAudio.paused) {
+                bgAudio.pause();
+                hasAutoStartedAudio = true;
             } else {
-                playInstrumentalAnthem();
+                playCustomAudio(false);
             }
         }
 
@@ -663,7 +543,7 @@
         }
 
         async function playCelebrationFanfare() {
-            if (!soundEnabled || isAnthemPlaying || typeof Tone === 'undefined') return;
+            if (!soundEnabled || isAudioPlaying || typeof Tone === 'undefined') return;
             try {
                 await Tone.start();
                 const synth = new Tone.PolySynth(Tone.Synth, {
@@ -708,7 +588,7 @@
             if (counterEl) counterEl.textContent = saluteCount;
 
             if (!isAnthemPlaying) {
-                playCelebrationFanfare();
+                playInstrumentalAnthem();
             }
             showToast('Jai Hind! Grand Salute Sent!', 'Heartiest congratulations to Mr. Shivam Prajapati!');
 
@@ -854,8 +734,11 @@
             fallingParticles.push(new FallingParticle(true));
         }
 
-        // Allow clicking/tapping anywhere on background to launch a firework
+        // Allow clicking/tapping anywhere on background to launch a firework & start audio
         document.addEventListener('click', (e) => {
+            if (!hasAutoStartedAudio && !e.target.closest('#musicToggleBtn')) {
+                playCustomAudio(true);
+            }
             if (e.target.closest('button')) return;
             createFireworkBurst(e.clientX, e.clientY);
         });
