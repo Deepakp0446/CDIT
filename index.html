@@ -197,12 +197,12 @@
     </div>
 
     <!-- Top Sound Toggle Bar -->
-    <header class="relative z-30 max-w-5xl mx-auto px-4 pt-4 flex items-center justify-end gap-2 text-xs text-slate-300">
-        <button onclick="toggleBackgroundMusic()" id="musicToggleBtn" class="bg-slate-900/80 hover:bg-slate-800 border border-amber-400/40 text-amber-300 px-3.5 py-1.5 rounded-full transition flex items-center gap-1.5 cursor-pointer shadow-md">
-            <span id="musicIcon">🎵</span>
-            <span id="musicLabel">Play Music</span>
+    <header class="relative z-30 max-w-5xl mx-auto px-3 sm:px-4 pt-3 sm:pt-4 flex flex-wrap items-center justify-end gap-2 text-xs text-slate-300">
+        <button onclick="toggleNationalAnthem()" id="musicToggleBtn" class="bg-slate-900/85 hover:bg-slate-800 border border-amber-400/50 text-amber-300 px-3 sm:px-4 py-2 rounded-full transition flex items-center gap-1.5 cursor-pointer shadow-md touch-manipulation">
+            <span id="musicIcon">🇮🇳</span>
+            <span id="musicLabel">Play National Anthem</span>
         </button>
-        <button onclick="toggleSound()" id="soundToggleBtn" class="bg-slate-900/80 hover:bg-slate-800 border border-amber-400/40 text-amber-300 px-3.5 py-1.5 rounded-full transition flex items-center gap-1.5 cursor-pointer shadow-md">
+        <button onclick="toggleSound()" id="soundToggleBtn" class="bg-slate-900/85 hover:bg-slate-800 border border-amber-400/40 text-amber-300 px-3 sm:px-4 py-2 rounded-full transition flex items-center gap-1.5 cursor-pointer shadow-md touch-manipulation">
             <span id="soundIcon">🔊</span>
             <span id="soundLabel">Fanfare: ON</span>
         </button>
@@ -210,19 +210,16 @@
 
     <!--
         ===================================================================
-        DEVELOPER INSTRUCTION - HOW TO ADD YOUR CUSTOM CELEBRATION AUDIO:
-        1. Place your audio file (e.g., "celebration.mp3") in the exact same
-           folder as this HTML file.
-        2. Keep `src="celebration.mp3"` below (or update the filename to
-           match your MP3/OGG/WAV file).
-        3. Visitors can play/pause it from the top "Play Music" button, and
-           it will also start automatically when they click "Celebrate"!
+        OPTIONAL CUSTOM AUDIO FILE:
+        If you also want to place an external "anthem.mp3" file in the same
+        folder, it will play automatically; otherwise, the built-in realistic
+        instrumental National Anthem (Jana Gana Mana) plays cleanly!
         ===================================================================
     -->
-    <audio id="bgCelebrationAudio" src="celebration.mp3" loop preload="auto"></audio>
+    <audio id="bgCelebrationAudio" src="anthem.mp3" preload="auto"></audio>
 
     <!-- MAIN CELEBRATION CONTAINER -->
-    <main class="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 pt-4 pb-20 flex flex-col items-center text-center">
+    <main class="relative z-20 max-w-5xl mx-auto px-3 sm:px-6 pt-3 sm:pt-4 pb-16 sm:pb-20 flex flex-col items-center text-center">
 
         <!-- Animated UP Police Inspired Emblem / Crest SVG -->
         <div class="float-gentle mb-3">
@@ -290,42 +287,41 @@
         <!-- ===================================================================== -->
         <!-- CANDIDATE PORTRAIT SECTION (LOCKED & READ-ONLY)                       -->
         <!-- ===================================================================== -->
-        <section class="relative my-5 sm:my-7 flex flex-col items-center justify-center w-full">
+        <section class="relative my-4 sm:my-7 flex flex-col items-center justify-center w-full overflow-hidden py-4">
             <!-- Rotating Light Rays behind Candidate -->
-            <div class="spotlight-rays"></div>
+            <div class="spotlight-rays w-[320px] h-[320px] sm:w-[560px] sm:h-[560px]"></div>
 
             <!-- Ornate Golden Circular Portrait Frame -->
             <div class="relative z-10">
                 <!-- Decorative Outer Spinning Dashed Gold Ring -->
-                <div class="ornate-ring absolute -inset-4 sm:-inset-5 rounded-full border-2 border-dashed border-amber-400/70 pointer-events-none"></div>
+                <div class="ornate-ring absolute -inset-3 sm:-inset-5 rounded-full border-2 border-dashed border-amber-400/70 pointer-events-none"></div>
                 <!-- Secondary Tricolor Glow Ring -->
-                <div class="absolute -inset-2 rounded-full bg-gradient-to-tr from-orange-500 via-amber-300 to-emerald-500 opacity-80 blur-sm pointer-events-none"></div>
+                <div class="absolute -inset-1.5 sm:-inset-2 rounded-full bg-gradient-to-tr from-orange-500 via-amber-300 to-emerald-500 opacity-80 blur-sm pointer-events-none"></div>
 
                 <!-- Main Portrait Container -->
-                <div class="relative w-56 h-56 sm:w-72 sm:h-72 rounded-full p-2 bg-gradient-to-b from-amber-200 via-amber-500 to-amber-800 golden-halo overflow-hidden">
+                <div class="relative w-48 h-48 sm:w-72 sm:h-72 rounded-full p-1.5 sm:p-2 bg-gradient-to-b from-amber-200 via-amber-500 to-amber-800 golden-halo overflow-hidden">
                     <div class="w-full h-full rounded-full overflow-hidden bg-slate-900 relative border-4 border-slate-950 flex items-center justify-center">
                         <!--
                             ===================================================================
-                            DEVELOPER INSTRUCTION - HOW TO ADD THE CANDIDATE'S PHOTO:
-                            1. Place your photo file (e.g., "candidate.jpg") in the exact same
-                               folder as this HTML file.
-                            2. Keep `src="candidate.jpg"` below (or update the filename to match
-                               your image, such as `src="rahul-up-police.png"`).
-                            3. If `candidate.jpg` is not yet in the folder, the built-in golden
-                               officer silhouette crest below is displayed automatically.
+                            HOW TO SET SHIVAM'S INSTAGRAM PHOTO (@pshivam8726):
+                            Instagram blocks direct automated scraping of private/profile photos,
+                            so simply save his profile photo from @pshivam8726 as "shivam.jpg"
+                            in the same folder as this HTML file!
+                            Until "shivam.jpg" is placed in the folder, the golden officer
+                            crest below displays automatically.
                             ===================================================================
                         -->
                         <img
                             id="candidatePhoto"
-                            src="candidate.jpg"
+                            src="shivam.jpg"
                             onerror="this.style.display='none'; document.getElementById('fallbackCrest').classList.remove('hidden');"
-                            alt="Selected Candidate"
+                            alt="Mr. Shivam Prajapati"
                             class="w-full h-full object-cover object-top"
                         />
 
-                        <!-- Built-in SVG Fallback Silhouette & Crest (shown only if candidate.jpg is missing) -->
-                        <div id="fallbackCrest" class="hidden w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#0f255c] to-[#060e24] p-4 select-none">
-                            <svg class="w-28 h-28 sm:w-36 sm:h-36 text-amber-300/90 drop-shadow-[0_4px_12px_rgba(245,185,21,0.4)]" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Built-in SVG Fallback Silhouette & Crest (shown until shivam.jpg is added) -->
+                        <div id="fallbackCrest" class="hidden w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#0f255c] to-[#060e24] p-3 sm:p-4 select-none">
+                            <svg class="w-24 h-24 sm:w-36 sm:h-36 text-amber-300/90 drop-shadow-[0_4px_12px_rgba(245,185,21,0.4)]" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Police Peak Cap Silhouette -->
                                 <path d="M26 42C26 31 41 24 60 24C79 24 94 31 94 42L87 50H33L26 42Z" fill="#D91E2A" stroke="#F5B915" stroke-width="2.5"/>
                                 <rect x="33" y="47" width="54" height="6" rx="2" fill="#0D2B7A" stroke="#F5B915" stroke-width="1.5"/>
@@ -340,60 +336,51 @@
                                 <rect x="33" y="87" width="12" height="4" rx="2" fill="#D91E2A"/>
                                 <rect x="75" y="87" width="12" height="4" rx="2" fill="#D91E2A"/>
                             </svg>
-                            <span class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-amber-300/90 mt-1">UP Police Pride</span>
+                            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-amber-300/90 mt-1">UP Police Pride</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Floating "SELECTED" Crest Badge at Bottom of Frame -->
-                <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap select-none">
-                    <div class="px-5 py-1.5 rounded-full bg-gradient-to-r from-red-700 via-red-600 to-blue-900 border-2 border-amber-300 shadow-xl flex items-center gap-2">
-                        <span class="text-amber-300 text-sm">★</span>
-                        <span class="text-xs sm:text-sm font-extrabold tracking-widest uppercase text-white">Selected • UP Police</span>
-                        <span class="text-amber-300 text-sm">★</span>
+                <div class="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap select-none">
+                    <div class="px-4 sm:px-5 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-red-700 via-red-600 to-blue-900 border-2 border-amber-300 shadow-xl flex items-center gap-1.5 sm:gap-2">
+                        <span class="text-amber-300 text-xs sm:text-sm">★</span>
+                        <span class="text-[11px] sm:text-sm font-extrabold tracking-widest uppercase text-white">Selected • UP Police</span>
+                        <span class="text-amber-300 text-xs sm:text-sm">★</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ===================================================================== -->
-        <!-- CANDIDATE NAME & RANK PLATE (STATIC - EDIT DIRECTLY IN HTML CODE)     -->
+        <!-- CANDIDATE NAME PLATE (POST SECTION REMOVED AS REQUESTED)              -->
         <!-- ===================================================================== -->
-        <section class="relative z-10 mt-4 mb-8 w-full max-w-2xl">
-            <div class="royal-card rounded-3xl px-6 py-6 sm:px-10 sm:py-8 relative overflow-hidden">
+        <section class="relative z-10 mt-3 sm:mt-4 mb-6 sm:mb-8 w-full max-w-2xl px-1">
+            <div class="royal-card rounded-2xl sm:rounded-3xl px-4 py-5 sm:px-10 sm:py-8 relative overflow-hidden">
                 <!-- Corner Golden Accents -->
-                <div class="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-amber-400/70 rounded-tl-3xl pointer-events-none"></div>
-                <div class="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-amber-400/70 rounded-br-3xl pointer-events-none"></div>
+                <div class="absolute top-0 left-0 w-12 h-12 sm:w-16 sm:h-16 border-t-4 border-l-4 border-amber-400/70 rounded-tl-2xl sm:rounded-tl-3xl pointer-events-none"></div>
+                <div class="absolute bottom-0 right-0 w-12 h-12 sm:w-16 sm:h-16 border-b-4 border-r-4 border-amber-400/70 rounded-br-2xl sm:rounded-br-3xl pointer-events-none"></div>
 
-                <p class="text-xs uppercase tracking-[0.25em] text-amber-300/80 font-semibold mb-1">
+                <p class="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-amber-300/80 font-semibold mb-1.5">
                     Pride of Family &amp; Uttar Pradesh
                 </p>
 
-                <!-- =============================================================== -->
-                <!-- DEVELOPER INSTRUCTION: REPLACE CANDIDATE NAME BELOW IN HTML     -->
-                <!-- =============================================================== -->
-                <h3 id="candidateName" class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight my-1">
-                    Shri / Kumari [Candidate Name]
+                <h3 id="candidateName" class="text-2xl sm:text-5xl font-extrabold text-white tracking-tight my-1.5 leading-tight break-words">
+                    Mr. Shivam Prajapati
                 </h3>
 
-                <!-- =============================================================== -->
-                <!-- DEVELOPER INSTRUCTION: REPLACE RANK / POST / BATCH BELOW        -->
-                <!-- =============================================================== -->
-                <div class="inline-flex flex-wrap items-center justify-center gap-2 mt-2 px-4 py-1.5 rounded-xl bg-amber-500/15 border border-amber-400/30">
-                    <span class="text-amber-400 font-bold">🎖️ Post:</span>
-                    <span id="candidatePost" class="text-amber-100 font-semibold text-sm sm:text-base">
-                        Constable (आरक्षी) • Uttar Pradesh Police
-                    </span>
-                </div>
-
                 <!-- Primary Interactive Celebration CTA -->
-                <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-                    <button onclick="launchGrandCelebration()" class="btn-celebrate px-7 py-3.5 rounded-full font-extrabold text-sm sm:text-base uppercase tracking-wider flex items-center gap-2.5 cursor-pointer">
+                <div class="mt-5 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button onclick="launchGrandCelebration()" class="btn-celebrate w-full sm:w-auto justify-center px-6 sm:px-7 py-3.5 rounded-full font-extrabold text-sm sm:text-base uppercase tracking-wider flex items-center gap-2.5 cursor-pointer touch-manipulation">
                         <span class="text-xl">🎆</span>
                         <span>Celebrate / Fireworks</span>
                     </button>
+                    <button onclick="toggleNationalAnthem()" class="w-full sm:w-auto justify-center px-5 py-3 rounded-full bg-slate-900/90 hover:bg-slate-800 border border-amber-400/50 text-amber-300 font-bold text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 cursor-pointer transition touch-manipulation">
+                        <span>🎺</span>
+                        <span>Anthem Instrumental</span>
+                    </button>
                 </div>
-                <p class="text-xs text-slate-300 mt-3">
+                <p class="text-xs text-slate-300 mt-3.5">
                     Total Blessings &amp; Salutes Sent: <span id="saluteCounter" class="font-bold text-amber-300 text-sm">108</span> 🫡
                 </p>
             </div>
@@ -402,32 +389,29 @@
         <!-- ===================================================================== -->
         <!-- INSPIRING CONGRATULATORY MESSAGE & UP POLICE MOTTO CARDS              -->
         <!-- ===================================================================== -->
-        <section class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-6 text-left reveal">
+        <section class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 text-left reveal px-1">
             <!-- Main Congratulatory Letter Card -->
-            <div class="md:col-span-8 royal-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between">
+            <div class="md:col-span-8 royal-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <span class="w-10 h-10 rounded-2xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-xl">🏆</span>
+                        <span class="w-10 h-10 shrink-0 rounded-2xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-xl">🏆</span>
                         <div>
-                            <h4 class="text-lg sm:text-xl font-bold text-amber-300">A Triumph of Hard Work &amp; Khaki Pride</h4>
+                            <h4 class="text-base sm:text-xl font-bold text-amber-300">A Triumph of Hard Work &amp; Khaki Pride</h4>
                             <p class="text-xs text-slate-300">Dedication • Discipline • Duty</p>
                         </div>
                     </div>
 
-                    <!-- DEVELOPER INSTRUCTION: EDIT ENGLISH CONGRATULATORY MESSAGE BELOW -->
                     <p class="text-slate-100 leading-relaxed text-sm sm:text-base mb-4">
-                        Heartfelt congratulations on your phenomenal achievement in clearing the <strong class="text-amber-300">Uttar Pradesh Police Bharti</strong>! Your sleepless nights, relentless physical training, and unwavering determination have earned you the prestigious uniform of honor.
+                        Heartfelt congratulations, <strong class="text-amber-300">Mr. Shivam Prajapati</strong>, on your phenomenal achievement in clearing the <strong class="text-amber-300">Uttar Pradesh Police Bharti</strong>! Your sleepless nights, relentless physical training, and unwavering determination have earned you the prestigious uniform of honor.
                     </p>
 
-                    <!-- DEVELOPER INSTRUCTION: EDIT HINDI CONGRATULATORY QUOTE BELOW -->
-                    <p class="font-hindi text-amber-200/95 leading-relaxed text-sm sm:text-base bg-slate-950/40 p-4 rounded-2xl border-l-4 border-amber-400">
+                    <p class="font-hindi text-amber-200/95 leading-relaxed text-sm sm:text-base bg-slate-950/40 p-3.5 sm:p-4 rounded-2xl border-l-4 border-amber-400">
                         "खाकी वर्दी केवल एक पोशाक नहीं, बल्कि देश और समाज की सेवा का गौरवशाली संकल्प है। आपकी इस शानदार सफलता पर पूरे परिवार और क्षेत्र को गर्व है। उज्ज्वल भविष्य की अनंत शुभकामनाएँ!"
                     </p>
                 </div>
 
                 <div class="mt-6 pt-4 border-t border-slate-700/70 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300">
                     <span>With Best Wishes &amp; Warm Regards,</span>
-                    <!-- DEVELOPER INSTRUCTION: EDIT SENDER SIGNATURE BELOW -->
                     <span class="font-bold text-amber-300 text-sm">— Family, Friends &amp; Well-Wishers</span>
                 </div>
             </div>
@@ -490,57 +474,178 @@
     <div class="tricolor-bar h-1.5 w-full"></div>
 
     <!-- ===================================================================== -->
-    <!-- JAVASCRIPT: CONFETTI, FLOWER PETALS, FIREWORKS & CELEBRATION AUDIO    -->
+    <!-- JAVASCRIPT: CONFETTI, PETALS, FIREWORKS & NATIONAL ANTHEM INSTRUMENTAL -->
     <!-- ===================================================================== -->
     <script>
         /* ---------------------------------------------------------------------
-           1. CUSTOM AUDIO PLAYER & CELEBRATORY FANFARE SYNTHESIZER (TONE.JS)
-           Supports a local "celebration.mp3" file with synthesized fallback.
+           1. INDIAN NATIONAL ANTHEM (JANA GANA MANA) INSTRUMENTAL SYNTHESIZER
+           Plays a majestic orchestral flute/brass-style instrumental melody
+           using Tone.js (or plays external "anthem.mp3" if placed in folder).
         --------------------------------------------------------------------- */
         let soundEnabled = true;
-        let isMusicPlaying = false;
+        let isAnthemPlaying = false;
         let customAudioAvailable = true;
+        let anthemSequenceEvents = [];
+        let anthemEndTimer = null;
 
         const bgAudio = document.getElementById('bgCelebrationAudio');
         if (bgAudio) {
-            bgAudio.volume = 0.65;
+            bgAudio.volume = 0.75;
             bgAudio.addEventListener('error', () => {
                 customAudioAvailable = false;
             });
+            bgAudio.addEventListener('ended', () => {
+                updateAnthemButtonUI(false);
+            });
         }
 
-        function updateMusicButtonUI(playing) {
-            isMusicPlaying = playing;
+        function updateAnthemButtonUI(playing) {
+            isAnthemPlaying = playing;
             const icon = document.getElementById('musicIcon');
             const label = document.getElementById('musicLabel');
             if (!icon || !label) return;
             if (playing) {
                 icon.textContent = '⏸️';
-                label.textContent = 'Pause Music';
+                label.textContent = 'Stop Anthem';
             } else {
-                icon.textContent = '🎵';
-                label.textContent = 'Play Music';
+                icon.textContent = '🇮🇳';
+                label.textContent = 'Play National Anthem';
             }
         }
 
-        async function toggleBackgroundMusic() {
-            if (!bgAudio || !customAudioAvailable) {
-                showToast('Add "celebration.mp3" in Folder', 'Place celebration.mp3 next to this HTML file to play custom audio!');
-                playCelebrationFanfare();
-                return;
+        function stopInstrumentalAnthem() {
+            anthemSequenceEvents.forEach(id => clearTimeout(id));
+            anthemSequenceEvents = [];
+            if (anthemEndTimer) {
+                clearTimeout(anthemEndTimer);
+                anthemEndTimer = null;
+            }
+            if (bgAudio && !bgAudio.paused) {
+                bgAudio.pause();
+                bgAudio.currentTime = 0;
+            }
+            updateAnthemButtonUI(false);
+        }
+
+        async function playInstrumentalAnthem() {
+            if (isAnthemPlaying) return;
+
+            // If user placed an external anthem.mp3 in the folder, play it first
+            if (bgAudio && customAudioAvailable) {
+                try {
+                    await bgAudio.play();
+                    updateAnthemButtonUI(true);
+                    showToast('🇮🇳 Jana Gana Mana Instrumental', 'Saluting the pride of Uttar Pradesh Police!');
+                    return;
+                } catch (err) {
+                    // Fallback smoothly to built-in Tone.js National Anthem instrumental
+                }
             }
 
+            if (typeof Tone === 'undefined') return;
+
             try {
-                if (bgAudio.paused) {
-                    await bgAudio.play();
-                    updateMusicButtonUI(true);
-                } else {
-                    bgAudio.pause();
-                    updateMusicButtonUI(false);
-                }
+                await Tone.start();
+                stopInstrumentalAnthem();
+                updateAnthemButtonUI(true);
+                showToast('🇮🇳 Jana Gana Mana Instrumental', 'Saluting Mr. Shivam Prajapati & UP Police!');
+
+                // Warm Ceremonial Brass/Strings Pad + Melodic Lead
+                const reverb = new Tone.Reverb({ decay: 2.8, wet: 0.35 }).toDestination();
+                const leadSynth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: 'triangle' },
+                    envelope: { attack: 0.08, decay: 0.25, sustain: 0.65, release: 0.9 }
+                }).connect(reverb);
+                leadSynth.volume.value = -5;
+
+                const padSynth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 0.2, decay: 0.4, sustain: 0.7, release: 1.4 }
+                }).connect(reverb);
+                padSynth.volume.value = -13;
+
+                // Complete Jana Gana Mana melody in C Major (Sa = C4)
+                // Format: [note, durationSec, gapAfterSec, chordNotes]
+                const beat = 0.46; // Ceremonial 52-second march tempo
+                const melody = [
+                    // Ja-na Ga-na Ma-na A-dhi-na-ya-ka Ja-ya He
+                    ['C4', 1, ['C3','G3']], ['D4', 1, null], ['E4', 1, ['C3','E3','G3']], ['E4', 1, null],
+                    ['E4', 1, null], ['E4', 1, null], ['E4', 1, null], ['E4', 1, null],
+                    ['E4', 1, null], ['D4', 1, ['G3','B3']], ['E4', 1, null], ['F4', 2, ['F3','A3','C4']],
+                    // Bha-ra-ta Bha-gya Vi-dha-ta
+                    ['E4', 1, ['C3','G3']], ['E4', 1, null], ['E4', 1, null], ['D4', 1, ['G3','B3']],
+                    ['D4', 1, null], ['D4', 1, null], ['B3', 1, null], ['D4', 1, null], ['C4', 2.4, ['C3','E3','G3']],
+                    // Pun-ja-ba Sin-dhu Gu-ja-ra-ta Ma-ra-tha
+                    ['C4', 1, ['C3','G3']], ['G4', 1, ['C3','E3','G3']], ['G4', 1, null], ['G4', 1, null],
+                    ['G4', 1, null], ['G4', 1, null], ['G4', 1, null], ['G4', 1, null],
+                    ['F#4', 1, ['D3','A3']], ['G4', 1, null], ['A4', 2.2, ['F3','A3','C4']],
+                    // Dra-vi-da Ut-ka-la Ban-ga
+                    ['G4', 1, ['C3','G3']], ['G4', 1, null], ['G4', 1, null], ['F4', 1, ['F3','A3']],
+                    ['F4', 1, null], ['F4', 1, null], ['E4', 1, ['C3','E3']], ['G4', 1, null], ['F4', 2.2, ['F3','A3','C4']],
+                    // Vin-dhya Hi-ma-cha-la Ya-mu-na Gan-ga
+                    ['E4', 1, ['C3','E3','G3']], ['E4', 1, null], ['E4', 1, null], ['E4', 1, null],
+                    ['E4', 1, null], ['D4', 1, ['G3','B3']], ['G4', 1, null], ['G4', 1, null],
+                    ['G4', 1, null], ['F4', 1, ['F3','A3']], ['F4', 2.2, ['F3','A3','C4']],
+                    // Uch-chha-la Ja-la-dhi Ta-ran-ga
+                    ['E4', 1, ['C3','G3']], ['E4', 1, null], ['E4', 1, null], ['D4', 1, ['G3','B3']],
+                    ['D4', 1, null], ['D4', 1, null], ['B3', 1, null], ['D4', 1, null], ['C4', 2.4, ['C3','E3','G3']],
+                    // Ta-va Shu-bha Na-me Ja-ge
+                    ['C4', 1, ['C3','G3']], ['D4', 1, null], ['E4', 1, ['C3','E3','G3']], ['E4', 1, null],
+                    ['E4', 1, null], ['E4', 1, null], ['D4', 1, ['G3','B3']], ['E4', 1, null], ['F4', 2.2, ['F3','A3','C4']],
+                    // Ta-va Shu-bha A-shi-sha Ma-ge
+                    ['E4', 1, ['C3','G3']], ['F4', 1, null], ['G4', 1, ['C3','E3','G3']], ['G4', 1, null],
+                    ['G4', 1, null], ['F4', 1, ['F3','A3']], ['E4', 1, null], ['D4', 1, ['G3','B3']], ['F4', 1, null], ['E4', 2.2, ['C3','E3','G3']],
+                    // Ga-he Ta-va Ja-ya Ga-tha
+                    ['E4', 1, ['C3','G3']], ['E4', 1, null], ['D4', 1, ['G3','B3']], ['D4', 1, null],
+                    ['D4', 1, null], ['D4', 1, null], ['B3', 1, null], ['D4', 1, null], ['C4', 2.4, ['C3','E3','G3']],
+                    // Ja-na Ga-na Man-ga-la Da-ya-ka Ja-ya He
+                    ['G4', 1.2, ['C3','E3','G3']], ['G4', 1, null], ['G4', 1, null], ['G4', 1, null],
+                    ['G4', 1, null], ['G4', 1, null], ['F#4', 1, ['D3','A3']], ['G4', 1, null], ['A4', 2.2, ['F3','A3','C4']],
+                    // Bha-ra-ta Bha-gya Vi-dha-ta
+                    ['G4', 1, ['C3','G3']], ['G4', 1, null], ['G4', 1, null], ['F4', 1, ['F3','A3']],
+                    ['F4', 1, null], ['F4', 1, null], ['E4', 1, ['C3','E3']], ['G4', 1, null], ['F4', 2.2, ['F3','A3','C4']],
+                    // Ja-ya He, Ja-ya He, Ja-ya He
+                    ['C5', 1.3, ['C3','E3','G3']], ['B4', 1.1, ['G3','B3']], ['A4', 2.0, ['F3','A3','C4']],
+                    ['B4', 1.3, ['G3','B3','D4']], ['A4', 1.1, ['F3','A3']], ['G4', 2.0, ['C3','E3','G3']],
+                    ['A4', 1.3, ['F3','A3','C4']], ['G4', 1.1, ['C3','E3','G3']], ['F4', 2.2, ['F3','A3','C4']],
+                    // Ja-ya Ja-ya Ja-ya Ja-ya He!
+                    ['C4', 1, ['C3','G3']], ['C4', 1, null], ['D4', 1, ['G3','B3']], ['D4', 1, null],
+                    ['E4', 1, ['C3','E3','G3']], ['E4', 1, null], ['D4', 1, ['G3','B3']], ['E4', 1, null],
+                    ['F4', 3.4, ['F3','A3','C4','F4']]
+                ];
+
+                let elapsedMs = 0;
+                melody.forEach(([note, beats, chord]) => {
+                    const durationSec = beats * beat;
+                    const tId = setTimeout(() => {
+                        if (!isAnthemPlaying) return;
+                        leadSynth.triggerAttackRelease(note, durationSec * 0.92);
+                        if (chord) {
+                            padSynth.triggerAttackRelease(chord, durationSec * 1.4);
+                        }
+                    }, elapsedMs);
+                    anthemSequenceEvents.push(tId);
+                    elapsedMs += durationSec * 1000;
+                });
+
+                anthemEndTimer = setTimeout(() => {
+                    updateAnthemButtonUI(false);
+                    // Grand finale firework burst at the end of the National Anthem!
+                    createFireworkBurst(window.innerWidth * 0.3, window.innerHeight * 0.25);
+                    createFireworkBurst(window.innerWidth * 0.7, window.innerHeight * 0.25);
+                    createFireworkBurst(window.innerWidth * 0.5, window.innerHeight * 0.18);
+                }, elapsedMs + 400);
+
             } catch (err) {
-                showToast('Add "celebration.mp3" in Folder', 'Place celebration.mp3 next to this HTML file to play custom audio!');
-                playCelebrationFanfare();
+                updateAnthemButtonUI(false);
+            }
+        }
+
+        function toggleNationalAnthem() {
+            if (isAnthemPlaying) {
+                stopInstrumentalAnthem();
+            } else {
+                playInstrumentalAnthem();
             }
         }
 
@@ -558,7 +663,7 @@
         }
 
         async function playCelebrationFanfare() {
-            if (!soundEnabled || typeof Tone === 'undefined') return;
+            if (!soundEnabled || isAnthemPlaying || typeof Tone === 'undefined') return;
             try {
                 await Tone.start();
                 const synth = new Tone.PolySynth(Tone.Synth, {
@@ -568,7 +673,6 @@
                 synth.volume.value = -8;
 
                 const now = Tone.now();
-                // Uplifting royal fanfare arpeggio (C Major / G Major ceremonial feel)
                 synth.triggerAttackRelease('C4', '8n', now);
                 synth.triggerAttackRelease('E4', '8n', now + 0.12);
                 synth.triggerAttackRelease('G4', '8n', now + 0.24);
@@ -603,13 +707,10 @@
             const counterEl = document.getElementById('saluteCounter');
             if (counterEl) counterEl.textContent = saluteCount;
 
-            // Start custom background audio if added & not yet playing
-            if (bgAudio && customAudioAvailable && bgAudio.paused) {
-                bgAudio.play().then(() => updateMusicButtonUI(true)).catch(() => {});
+            if (!isAnthemPlaying) {
+                playCelebrationFanfare();
             }
-
-            playCelebrationFanfare();
-            showToast('Jai Hind! Grand Salute Sent!', 'Wishing a proud & glorious career in UP Police!');
+            showToast('Jai Hind! Grand Salute Sent!', 'Heartiest congratulations to Mr. Shivam Prajapati!');
 
             // Launch 6 staggered firework bursts across the screen
             const w = window.innerWidth;
@@ -753,12 +854,9 @@
             fallingParticles.push(new FallingParticle(true));
         }
 
-        // Allow clicking anywhere on background to launch a firework (and start music if available)
+        // Allow clicking/tapping anywhere on background to launch a firework
         document.addEventListener('click', (e) => {
             if (e.target.closest('button')) return;
-            if (bgAudio && customAudioAvailable && bgAudio.paused) {
-                bgAudio.play().then(() => updateMusicButtonUI(true)).catch(() => {});
-            }
             createFireworkBurst(e.clientX, e.clientY);
         });
 
